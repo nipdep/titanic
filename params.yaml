@@ -1,5 +1,5 @@
 ft:
-  n_neigh: 2
+  n_neigh: 4
 
 train:
   split: 0.2

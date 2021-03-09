@@ -25,18 +25,18 @@ feature:
     size: 2111
   params:
     params.yaml:
-      ft.n_neigh: 2
+      ft.n_neigh: 4
   outs:
   - path: data/feature
-    md5: 2d2dd2fa229f9c84fc1ae86cf71ff1ee.dir
-    size: 43933
+    md5: 56dd289b33c635cca74d0794fecf67ba.dir
+    size: 44141
     nfiles: 2
 train:
   cmd: python src/kitchen_sink/train.py data/feature data/model score.json
   deps:
   - path: data/feature
-    md5: 2d2dd2fa229f9c84fc1ae86cf71ff1ee.dir
-    size: 43933
+    md5: 56dd289b33c635cca74d0794fecf67ba.dir
+    size: 44141
     nfiles: 2
   - path: src/kitchen_sink/train.py
     md5: bcf075d8633dbe29e020f4e86126b614
@@ -46,9 +46,9 @@ train:
       train.split: 0.2
   outs:
   - path: data/model
-    md5: e021c8ee52a7118881c3cbdd0a8f7919.dir
-    size: 327409
+    md5: cf3b80e852cdbcaf46a01e7a0fb2c8ee.dir
+    size: 329305
     nfiles: 2
   - path: score.json
-    md5: 74ff59b9407cec7dae6e24eb8eb459c5
-    size: 261
+    md5: 9c8bcad1dfa3042658214062acbdf050
+    size: 275
