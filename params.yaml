@@ -1,0 +1,5 @@
+ft:
+  n_neigh: 2
+
+train:
+  split: 0.2

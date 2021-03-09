@@ -1,0 +1,4 @@
+{
+    "python.pythonPath": ".virtualenv\\Scripts\\python.exe",
+    "jupyter.jupyterServerType": "local"
+}

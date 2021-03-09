@@ -1,0 +1,26 @@
+stages:
+  feature:
+    cmd: python src/kitchen_sink/featurize.py data/data data/feature
+    deps:
+    - src/kitchen_sink/featurize.py
+    - data/data
+    params:
+    - ft.n_neigh  
+    outs:
+    - data/feature:
+        persist: true
+  train:
+    cmd: python src/kitchen_sink/train.py data/feature data/model score.json
+    deps:
+    - src/kitchen_sink/train.py
+    - data/feature
+    params:
+    - train.split
+    outs:
+    - data/model:
+        persist: true
+    metrics:
+    - score.json:
+        cache: false
+
+    
