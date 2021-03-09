@@ -32,15 +32,15 @@ feature:
     size: 44141
     nfiles: 2
 train:
-  cmd: python src/kitchen_sink/train.py data/feature data/model score.json
+  cmd: python src/kitchen_sink/train.py data/feature data/model score.json prc.json
   deps:
   - path: data/feature
     md5: 56dd289b33c635cca74d0794fecf67ba.dir
     size: 44141
     nfiles: 2
   - path: src/kitchen_sink/train.py
-    md5: bcf075d8633dbe29e020f4e86126b614
-    size: 2514
+    md5: 05099f568eb4e48c69bbfe46578fbcdb
+    size: 2896
   params:
     params.yaml:
       train.split: 0.2
@@ -49,6 +49,9 @@ train:
     md5: cf3b80e852cdbcaf46a01e7a0fb2c8ee.dir
     size: 329305
     nfiles: 2
+  - path: prc.json
+    md5: 870058c5185318eddb2d279791f3c9ee
+    size: 160
   - path: score.json
     md5: 9c8bcad1dfa3042658214062acbdf050
     size: 275

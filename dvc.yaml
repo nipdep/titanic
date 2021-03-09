@@ -5,15 +5,15 @@ stages:
     - src/kitchen_sink/featurize.py
     - data/data
     params:
-    - ft.n_neigh  
+    - ft.n_neigh
     outs:
     - data/feature:
         persist: true
   train:
-    cmd: python src/kitchen_sink/train.py data/feature data/model score.json
+    cmd: python src/kitchen_sink/train.py data/feature data/model score.json prc.json
     deps:
-    - src/kitchen_sink/train.py
     - data/feature
+    - src/kitchen_sink/train.py
     params:
     - train.split
     outs:
@@ -22,5 +22,9 @@ stages:
     metrics:
     - score.json:
         cache: false
+    plots:
+    - prc.json:
+        cache: false
 
-    
+        x: recall
+        y: precision

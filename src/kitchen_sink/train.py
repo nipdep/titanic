@@ -7,13 +7,13 @@ import lightgbm as lgb
 import pandas as pd 
 import numpy as np
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import  accuracy_score, precision_score, recall_score, f1_score
+from sklearn.metrics import  accuracy_score, precision_score, recall_score, f1_score, precision_recall_curve
 
 params = yaml.safe_load(open('params.yaml'))['train']
 
 np.set_printoptions(suppress=True)
 
-if len(sys.argv) != 4:
+if len(sys.argv) != 5:
     sys.stderr.write('Argument error. Usage:\n')
     sys.stderr.write('\tpython featurization.py data-dit-path model-dir-path\n')
     sys.exit(1)
@@ -23,6 +23,7 @@ test_input = os.path.join(sys.argv[1], 'ks_test.csv')
 model_output = os.path.join(sys.argv[2], 'ks_model.pkl')
 test_output = os.path.join(sys.argv[2], 'ks_test.csv')
 score_path = os.path.join(sys.argv[3])
+plots_file = os.path.join(sys.argv[4])
 
 split = params['split']
 
@@ -49,6 +50,16 @@ with open(score_path,'w') as pf:
     json.dump({'train' : {'accuracy' : accuracy_score(y_train, y_tr_pred), 'precision' : precision_score(y_train, y_tr_pred), 'recall' : recall_score(y_train, y_tr_pred), 'f1-score' : f1_score(y_train, y_tr_pred)},
     'test' : {'accuracy' : accuracy_score(y_test, y_ts_pred), 'precision' : precision_score(y_test, y_ts_pred), 'recall' : recall_score(y_test, y_ts_pred), 'f1-score' : f1_score(y_test, y_ts_pred)}
     }, pf)
+
+precision, recall, thresholds = precision_recall_curve(y_test, y_ts_pred)
+
+with open(plots_file, 'w') as fd:
+    json.dump({'prc': [{
+            'precision': float(p),
+            'recall': float(r),
+            'threshold': float(t)
+        } for p, r, t in zip(precision, recall, thresholds)
+    ]}, fd)
 
 # make prediction for test set
 test_df = pd.read_csv(test_input)
