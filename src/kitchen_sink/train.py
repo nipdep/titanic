@@ -4,6 +4,7 @@ import yaml
 import json
 import pickle
 import lightgbm as lgb
+import dagshub
 import pandas as pd 
 import numpy as np
 from sklearn.model_selection import train_test_split
@@ -38,6 +39,10 @@ X_train, X_test, y_train, y_test = train_test_split(
 # model training
 clf = lgb.LGBMClassifier()
 clf.fit(X_train,y_train)
+
+with dagshub.dagshub_logger() as logger:
+    logger.log_hyperparams(model_class=type(clf).__name__)
+    logger.log_hyperparams({'model': clf.get_params()})  
 
 # model evaluation
 y_tr_pred = clf.predict(X_train)

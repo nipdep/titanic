@@ -2,3 +2,5 @@
     remote = st
 ['remote "st"']
     url = gdrive://1RY6gtn1CN4T1CMeS_5lbb5kagtiRtXCK
+['remote "origin"']
+    url = https://dagshub.com/nipdep/titanic.dvc

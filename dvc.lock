@@ -1,57 +1,59 @@
-test:
-  cmd: ^
-  deps:
-  - path: data/data
-    md5: bf1a6a19059092be578a3807608e236c.dir
-    size: 93081
-    nfiles: 3
-  - path: src/kitchen_sink/test.py
-    md5: 73eae8b1fa95329b887fbb32ed2d8a5e
-    size: 27
-  outs:
-  - path: data/feature
-    md5: 2d2dd2fa229f9c84fc1ae86cf71ff1ee.dir
-    size: 43933
-    nfiles: 2
-feature:
-  cmd: python src/kitchen_sink/featurize.py data/data data/feature
-  deps:
-  - path: data/data
-    md5: bf1a6a19059092be578a3807608e236c.dir
-    size: 93081
-    nfiles: 3
-  - path: src/kitchen_sink/featurize.py
-    md5: efc13f68416e9a6c8ea4bf3a747e09a7
-    size: 2111
-  params:
-    params.yaml:
-      ft.n_neigh: 4
-  outs:
-  - path: data/feature
-    md5: 56dd289b33c635cca74d0794fecf67ba.dir
-    size: 44141
-    nfiles: 2
-train:
-  cmd: python src/kitchen_sink/train.py data/feature data/model score.json prc.json
-  deps:
-  - path: data/feature
-    md5: 56dd289b33c635cca74d0794fecf67ba.dir
-    size: 44141
-    nfiles: 2
-  - path: src/kitchen_sink/train.py
-    md5: 05099f568eb4e48c69bbfe46578fbcdb
-    size: 2896
-  params:
-    params.yaml:
-      train.split: 0.2
-  outs:
-  - path: data/model
-    md5: cf3b80e852cdbcaf46a01e7a0fb2c8ee.dir
-    size: 329305
-    nfiles: 2
-  - path: prc.json
-    md5: 870058c5185318eddb2d279791f3c9ee
-    size: 160
-  - path: score.json
-    md5: 9c8bcad1dfa3042658214062acbdf050
-    size: 275
+schema: '2.0'
+stages:
+  test:
+    cmd: ^
+    deps:
+    - path: data/data
+      md5: bf1a6a19059092be578a3807608e236c.dir
+      size: 93081
+      nfiles: 3
+    - path: src/kitchen_sink/test.py
+      md5: 73eae8b1fa95329b887fbb32ed2d8a5e
+      size: 27
+    outs:
+    - path: data/feature
+      md5: 2d2dd2fa229f9c84fc1ae86cf71ff1ee.dir
+      size: 43933
+      nfiles: 2
+  feature:
+    cmd: python src/kitchen_sink/featurize.py data/data data/feature
+    deps:
+    - path: data/data
+      md5: bf1a6a19059092be578a3807608e236c.dir
+      size: 93081
+      nfiles: 3
+    - path: src/kitchen_sink/featurize.py
+      md5: efc13f68416e9a6c8ea4bf3a747e09a7
+      size: 2111
+    params:
+      params.yaml:
+        ft.n_neigh: 4
+    outs:
+    - path: data/feature
+      md5: 56dd289b33c635cca74d0794fecf67ba.dir
+      size: 44141
+      nfiles: 2
+  train:
+    cmd: python src/kitchen_sink/train.py data/feature data/model score.json prc.json
+    deps:
+    - path: data/feature
+      md5: 56dd289b33c635cca74d0794fecf67ba.dir
+      size: 44141
+      nfiles: 2
+    - path: src/kitchen_sink/train.py
+      md5: e1a39eca3ecb7907fc7f604024020ec2
+      size: 3075
+    params:
+      params.yaml:
+        train.split: 0.2
+    outs:
+    - path: data/model
+      md5: 87fbef7bae20a92ed3e2458cbc980480.dir
+      size: 329302
+      nfiles: 2
+    - path: prc.json
+      md5: 870058c5185318eddb2d279791f3c9ee
+      size: 160
+    - path: score.json
+      md5: 9c8bcad1dfa3042658214062acbdf050
+      size: 275
